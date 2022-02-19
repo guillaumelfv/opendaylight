@@ -1,34 +1,28 @@
-# Opendaylight controller
-[![](https://images.microbadger.com/badges/image/glefevre/opendaylight.svg)](https://microbadger.com/images/glefevre/opendaylight "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/glefevre/opendaylight.svg)](https://microbadger.com/images/glefevre/opendaylight "Get your own version badge on microbadger.com")
+# OpenDayLight controller
 
-*(SDN Openflow Controller)*
+[OpenDayLight (ODL)](https://www.OpenDayLight.org/) is an SDN OpenFlow controller, useful to control and orchestrate network of switches that speak the Openflow protocol on your infrastructure. It support others southbound protocol and can be integrated in Openstack or even Kubernetes.
 
-Opendaylight is an OpenFlow controller, usefull to control and orchestrate network of switches that speak the openflow protocol on your infrastructure.
-
-It support others southbound protocol and can be integrated in Openstack or even Kubernetes.
-
-[Opendaylight Home](https://www.opendaylight.org/)
-[Opendaylight Boron Documentation](http://docs.opendaylight.org/en/stable-boron/index.html)
+This container offer an OpenDayLight base installation without any module pre-installed. You can install module via CLI.
+Exposed ports:
+- `6633`: Openflow protocol port use to connect Openflow devices
+- `8181`: DLUX WebUI listening port
+- `8101`: SSH port use to remote login into the remote Karaf CLI
 
 ## Supported tags
-- latest
+- `latest`  [Boron Documentation](https://docs.OpenDayLight.org/en/stable-boron/#)
+- `0.5.0-Boron` [Boron Documentation](https://docs.OpenDayLight.org/en/stable-boron/#)
 
-## What's inside ?
-- Based on anapsix/alpine-java:8_jdk
-- No module installed (you can connect to the CLI to set whatever module you want to use)
-- Exposed port 6633 (Openflow), 8181 (WebUI/REST api) & 8101 (karaf CLI)
+## How to use this container
+#### Run container
+`docker run -d -p 6633:6633 -p 8181:8181 -p 8101:8101 --name=OpenDayLight glefevre/opendaylight`
 
-## How to use it ?
-### Run container
-`docker run -d -p 6633:6633 -p 8181:8181 -p 8101:8101 --name=opendaylight glefevre/opendaylight`
-
-### Access Opendaylight karaf CLI
-`ssh -p 8101 karaf@localhost`
+You can access the remote Karaf CLI via SSH: `ssh -p 8101 karaf@localhost`
 *Default password is "karaf"*
 
-### Access Web interface
-`http://localhost:8181/index.html`
+#### Install and access the DLUX Web UI
 
-### GUI / admin credential
+Access the remote Karaf CLI via SSH and install the dlux modules:
+`feature:install odl-dlux-core odl-dlux-all`
 
-`admin/admin`
+You can access the WebUI at the following url: `http://localhost:8181/index.html`
+*Default credential is "admin/admin"*
