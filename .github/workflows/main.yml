@@ -27,4 +27,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/opendaylight:${{ env.GITHUB_REF_NAME }},${{ secrets.DOCKERHUB_USERNAME }}/opendaylight:latest
+          tags: glefevre/opendaylight:${GITHUB_REF_NAME},glefevre/opendaylight:latest
